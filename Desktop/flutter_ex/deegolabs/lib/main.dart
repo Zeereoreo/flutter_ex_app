@@ -21,10 +21,42 @@ class MyApp extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TextButton(onPressed: (){}, child: Text('홈')),
-                TextButton(onPressed: (){}, child: Text('디고찾기')),
-                TextButton(onPressed: (){}, child: Text('포인트')),
-                TextButton(onPressed: (){}, child: Text('설정')),
+                OutlinedButton(onPressed: (){}, child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: const [
+                      Text('Home'),
+                      Icon(Icons.home_filled),
+                    ],
+                  ),
+                )),
+                ElevatedButton(onPressed: (){}, child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: const [
+                      Text('디고찾기'),
+                      Icon(Icons.map_rounded),
+                    ],
+                  ),
+                )),
+                TextButton(onPressed: (){}, child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: const [
+                      Text('포인트'),
+                      Icon(Icons.store_rounded),
+                    ],
+                  ),
+                )),
+                TextButton(onPressed: (){}, child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: const [
+                      Text('설정'),
+                      Icon(Icons.settings),
+                    ],
+                  ),
+                )),
               ],
             ),
           )
@@ -33,6 +65,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
 
 
 
