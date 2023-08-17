@@ -7,13 +7,24 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    var a = 'login아이디';
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text('deego'),),
+        // appBar: AppBar(title: Text('deego'),),
         body: Container(
+          child: Column(
+            children: [
+              Text('"$a" 님 환영합니다.'),
+              Container(),
+              Container(),
+              Text('즐겨찾기'),
 
+            ],
+          ),
         ),
         bottomNavigationBar: BottomAppBar(
           child: Container(
@@ -22,6 +33,7 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 OutlinedButton(onPressed: (){}, child: Container(
+                  // width: double.infinity,
                   margin: EdgeInsets.all(10),
                   child: Column(
                     children: const [
