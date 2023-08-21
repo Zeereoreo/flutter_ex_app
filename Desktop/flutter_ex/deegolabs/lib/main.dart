@@ -19,10 +19,64 @@ class MyApp extends StatelessWidget {
           child: Column(
             children: [
               Text('"$a" 님 환영합니다.'),
-              Container(),
-              Container(),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      child: Container(
+                        width: 200,
+                        color: Colors.cyanAccent,
+                        height: 150,
+                        margin: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.all(10),
+                              height: 50,
+                              child: Text('현재 포인트'),
+                            ),
+                            Container(
+                              margin: EdgeInsets.all(10),
+                              height: 60,
+                              child: Text('0'),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 200,
+                      color: Colors.cyanAccent,
+                      height: 150,
+                      margin: EdgeInsets.all(10),
+                      child: Column(
+                        children: const [
+                          Text('누적 포인트'),
+                          Text('0'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Text('즐겨찾기'),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(20),
+                  width: 300,
+                  height: 200,
+                  decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black)
+                ),
+                child: Text('즐겨찾는 디고'),
+              ),
+              ),
+              Container(
 
+              )
             ],
           ),
         ),
