@@ -27,6 +27,12 @@ class _MyAppState extends State<MyApp> {
   var tab = 0;
   var data = [];
 
+  addData(a){
+    setState(() {
+      data.add(a);
+    });
+  }
+
   getData() async {
     var result = await http.get( Uri.parse('https://codingapple1.github.io/app/data.json') );
     // 예외 처리 방법
@@ -63,7 +69,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       ),
-      body: [Home(data : data), Text('샵페이지')][tab],
+      body: [Home(data : data, addData :addData), Text('샵페이지')][tab],
       //PageView()는 스와이프 나오는 모양
       bottomNavigationBar:
       BottomNavigationBar(
@@ -85,8 +91,9 @@ class _MyAppState extends State<MyApp> {
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key, this.data}) : super(key: key);
+  const Home({Key? key, this.data, this.addData}) : super(key: key);
   final data;
+  final addData;
 
 
   @override
@@ -99,6 +106,7 @@ class _HomeState extends State<Home> {
   moreData() async {
     var result = await http.get(Uri.parse("https://codingapple1.github.io/app/more1.json"));
     var result2 = jsonDecode(result.body);
+    widget.addData(result2);
   }
 
   @override
