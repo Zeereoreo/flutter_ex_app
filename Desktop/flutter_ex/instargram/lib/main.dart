@@ -1,5 +1,6 @@
 import 'dart:js_interop';
 import 'package:flutter/material.dart';
+import 'package:instargram/notification.dart';
 import 'package:instargram/style.dart' as style;
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -8,13 +9,19 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-      MaterialApp(
-          home : MyApp(),
-          theme: style.theme
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (c) => Store1(),),
+          ChangeNotifierProvider(create: (c) => Store2(),)
+        ],
+        child: MaterialApp(
+            home : MyApp(),
+            theme: style.theme
+        ),
       )
   );
 }
@@ -39,7 +46,7 @@ class _MyAppState extends State<MyApp> {
     storage.setString('nave', 'john'); //저장
     storage.remove('name'); //삭제
     var result = storage.getString('name'); // 출력
-    print(result);
+    // print(result);
   }
 
   addMyData(){
@@ -89,6 +96,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     saveData();
     getData();
+    initNotification(context);
     }
 
 
@@ -96,6 +104,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(child: Text('+'),
+        onPressed: (){
+        showNotification();
+        },
+      ),
       appBar: AppBar(
         centerTitle: false,
         title: Text('Instagram'),
@@ -199,7 +212,6 @@ class _HomeState extends State<Home> {
                           pageBuilder: (c, a1, a2) => Profile(),
                           transitionsBuilder: (c, a1, a2, child) => FadeTransition(opacity: a1, child: child),
                           transitionDuration: Duration(milliseconds : 500),
-
                         ),
                       );
                     },
@@ -259,8 +271,43 @@ class Upload extends StatelessWidget {
   }
 }
 
+class Store2 extends ChangeNotifier {
+  var name = 'john kim';
+  changeName(){
+    name = 'john park';
+    notifyListeners(); // 재렌더링
+  }
+}
+
+class Store1 extends ChangeNotifier {
+  var follower = 0;
+  var check = true;
+  var profileImage = [];
+  
+  getData() async {
+    var result = await http.get(Uri.parse('https://codingapple1.github.io/app/profile.json'));
+    var result2 = jsonDecode(result.body);
+    profileImage = result2;
+    notifyListeners();
+    // print(profileImage);
+  }
+
+
+  followerBtn(){
+    if(check == true){
+      follower ++;
+      check = false;
+    } else {
+      follower --;
+      check = true;
+    }
+    notifyListeners(); // 재렌더링
+  }
+}
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
+
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -268,10 +315,58 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<Store1>().getData();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Text('프로필페이지'),
+      appBar: AppBar(
+        title: Text(context.watch<Store2>().name)
+      ),
+      body: CustomScrollView( // 전체의 스크롤 주기 위해
+        slivers: [
+          SliverToBoxAdapter(
+            child: ProfileHeader(),
+          ),
+          SliverGrid(
+              delegate: SliverChildBuilderDelegate(
+                  (c,i)=>
+                    Image.network(context.watch<Store1>().profileImage[i]),
+
+                childCount: context.watch<Store1>().profileImage.length,
+              ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileHeader extends StatelessWidget {
+  const ProfileHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: Colors.grey,
+          // backgroundImage: , 이미지 넣을 때
+        ),
+        Text('팔로워 ${context.watch<Store1>().follower} 명'),
+        ElevatedButton(onPressed: (){
+          context.read<Store1>().followerBtn();
+        }, child: Text('팔로우') ),
+        ElevatedButton(onPressed: (){
+          context.read<Store1>().getData();
+        }, child: Text('사진가져오기') )
+      ],
     );
   }
 }
