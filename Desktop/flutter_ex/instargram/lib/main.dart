@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(
@@ -193,7 +194,14 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     child: Text(widget.data[i]['user']),
                     onTap: (){
+                      Navigator.push(context,
+                        PageRouteBuilder(
+                          pageBuilder: (c, a1, a2) => Profile(),
+                          transitionsBuilder: (c, a1, a2, child) => FadeTransition(opacity: a1, child: child),
+                          transitionDuration: Duration(milliseconds : 500),
 
+                        ),
+                      );
                     },
                   ),
                   Text("좋아요 ${widget.data[i]['likes']}"),
@@ -248,6 +256,23 @@ class Upload extends StatelessWidget {
           ],
         )
     );
-
   }
 }
+
+class Profile extends StatefulWidget {
+  const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Text('프로필페이지'),
+    );
+  }
+}
+
