@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(
@@ -30,6 +32,14 @@ class _MyAppState extends State<MyApp> {
   var data = [];
   var userImage;
   var userContent;
+
+  saveData() async{
+    var storage = await SharedPreferences.getInstance();
+    storage.setString('nave', 'john'); //저장
+    storage.remove('name'); //삭제
+    var result = storage.getString('name'); // 출력
+    print(result);
+  }
 
   addMyData(){
     var myData = {
@@ -58,6 +68,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   getData() async {
+    // cached_network_image 패키지 깔기
     var result = await http.get( Uri.parse('https://codingapple1.github.io/app/data.json') );
     // 예외 처리 방법
     // if (result.statusCode == 200){
@@ -75,6 +86,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    saveData();
     getData();
     }
 
@@ -177,8 +189,15 @@ class _HomeState extends State<Home> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
+                  GestureDetector(
+                    child: Text(widget.data[i]['user']),
+                    onTap: (){
+
+                    },
+                  ),
                   Text("좋아요 ${widget.data[i]['likes']}"),
-                  Text(widget.data[i]['user']),
+                  Text(widget.data[i]['date']),
                   Text(widget.data[i]['content']),
                 ],
               ),
