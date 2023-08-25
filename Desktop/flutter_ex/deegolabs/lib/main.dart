@@ -16,30 +16,44 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         // appBar: AppBar(title: Text('deego'),),
         body: Container(
+          margin: EdgeInsets.all(10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('"$a" 님 환영합니다.'),
+              Text.rich(
+                TextSpan(
+                  text: a,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  children: const <TextSpan>[
+                    TextSpan(text: '님, 디고와 함께 \n 지구의 온도를 낮춰보세요!',
+                      style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17)
+                    )
+                  ]
+                ),
+                ),
               Container(
+                margin: EdgeInsets.only(top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Container(
                       child: Container(
                         width: 200,
-                        color: Colors.cyanAccent,
+                        color: Color(0xFFF5F7FB),
                         height: 150,
                         margin: EdgeInsets.all(10),
                         child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(top: 10),
                               height: 50,
                               child: Text('현재 포인트'),
                             ),
                             Container(
                               margin: EdgeInsets.all(10),
                               height: 60,
-                              child: Text('0'),
+                              child: Text('0', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
                             )
                           ],
                         ),
@@ -47,20 +61,28 @@ class MyApp extends StatelessWidget {
                     ),
                     Container(
                       width: 200,
-                      color: Colors.cyanAccent,
+                      color: Color(0xFFF5F7FB),
                       height: 150,
                       margin: EdgeInsets.all(10),
                       child: Column(
-                        children: const [
-                          Text('누적 포인트'),
-                          Text('0'),
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            height: 50,
+                            child: Text('누적 포인트'),
+                          ),
+                          Container(
+                            margin: EdgeInsets.all(10),
+                            height: 60,
+                            child: Text('0', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                          )
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              Text('즐겨찾기'),
+              Text('즐겨찾는 디고'),
               Align(
                 alignment: Alignment.center,
                 child: Container(
@@ -71,11 +93,11 @@ class MyApp extends StatelessWidget {
                   decoration: BoxDecoration(
                   border: Border.all(color: Colors.black)
                 ),
-                child: Text('즐겨찾는 디고'),
+                child: Text('즐겨찾는 디고가 없습니다.'),
               ),
               ),
               Container(
-
+                
               )
             ],
           ),
