@@ -1,3 +1,4 @@
+import 'package:deegolabs/camera_screen.dart';
 import 'package:flutter/material.dart';
 
 class Camera extends StatelessWidget {
@@ -5,7 +6,14 @@ class Camera extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Camera 페이지');
+    return MaterialApp(
+      title: 'Camera Example',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const CameraScreen(),
+    );
   }
 }
 
