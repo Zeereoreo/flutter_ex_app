@@ -1,4 +1,5 @@
 import 'package:deegolabs/camera.dart';
+import 'package:deegolabs/earn.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,6 +26,26 @@ class Home extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17)
                   )
                 ]
+            ),
+          ),
+          Container(
+            // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Earn()), // Earn 클래스의 인스턴스 반환
+                  );
+                },
+                    child: Text('적립 내역',style: TextStyle(
+                      fontSize: 10,
+                      color: Color(0xFFDFDFDF),
+                      decoration: TextDecoration.underline,
+                    ),)),
+              ],
             ),
           ),
           Container(
