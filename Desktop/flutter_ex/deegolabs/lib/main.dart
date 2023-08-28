@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> pages = [
     Home(),
-    Map(),
+    NaverMapApp(),
     Point(),
     Setting(),
   ];
