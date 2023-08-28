@@ -25,13 +25,12 @@ class Setting extends StatelessWidget {
                 ]
             ),
           ),
-          setBtn(),
-          setBtn(),
-          setBtn(),
-          setBtn(),
-          setBtn(),
-          setBtn(),
-
+          setBtn(buttonText: '정보 관리',),
+          setBtn(buttonText: '고객 센터',),
+          setBtn(buttonText: '공지 사항',),
+          setBtn(buttonText: '서비스 이용 약관',),
+          setBtn(buttonText: '개인정보 처리 방침',),
+          setBtn(buttonText: '버전 정보',),
         ],
       ),
     );
@@ -40,21 +39,33 @@ class Setting extends StatelessWidget {
 
 
 class setBtn extends StatelessWidget {
-  const setBtn({super.key});
+  final String buttonText;
+
+  const setBtn({Key? key, required this.buttonText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: () {  },
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('정보 관리'),
-              Icon(Icons.arrow_right_outlined)
-            ],
-          ),
-        ));
+    return TextButton(
+      onPressed: () {
+        // Navigator.push(context, MaterialPageRoute(builder: () => {}))
+      },
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(buttonText,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+
+            ),),
+            Icon(Icons.arrow_right_outlined),
+          ],
+        ),
+      ),
+    );
   }
 }
+
 

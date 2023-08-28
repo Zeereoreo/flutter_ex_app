@@ -1,3 +1,4 @@
+import 'package:deegolabs/camera.dart';
 import 'package:flutter/material.dart';
 
 
@@ -96,7 +97,11 @@ class Home extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, 
+                    MaterialPageRoute(builder: (context) => Camera())
+                    );
+                  },
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.black, padding: EdgeInsets.all(20),
                     backgroundColor: Colors.white,
@@ -104,7 +109,11 @@ class Home extends StatelessWidget {
                   child: Text('카메라 모드로 페트병을 찍어', style: TextStyle(fontSize: 15),),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Camera())
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(35),
