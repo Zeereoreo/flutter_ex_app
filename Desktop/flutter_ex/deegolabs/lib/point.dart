@@ -85,7 +85,7 @@ class Point extends StatelessWidget {
                     child : (
                         Text('사진 들어갈 자리'))),
                 Text('시흥 화폐 시루'),
-                Text('1만원권')
+                Text('1만원권'),
               ],
             ),
             // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
