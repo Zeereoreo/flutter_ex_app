@@ -13,14 +13,14 @@ class Point extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+            // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
             margin: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children:  [
                 Container(
-                    decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                    // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
                     // margin: EdgeInsets.all(20),
                     child: Row(
                       children: [
@@ -42,7 +42,7 @@ class Point extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.all(20),
                   width: 100,
-                  decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                  // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
                   child:
                     Text('0', style: TextStyle(
                     fontSize: 30,
@@ -53,7 +53,7 @@ class Point extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                       Container(
-                        decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                        // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
                         child:
                         Column(
                           children: const [
@@ -77,11 +77,22 @@ class Point extends StatelessWidget {
           ),
           Container(
             height: 100,
-            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+            child: Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+                  height: 150, width: 200,
+                    child : (
+                        Text('사진 들어갈 자리'))),
+                Text('시흥 화폐 시루'),
+                Text('1만원권')
+              ],
+            ),
+            // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
           ),
           Container(
             height: 100,
-            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
+            // decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
           ),
         ],
       ),
