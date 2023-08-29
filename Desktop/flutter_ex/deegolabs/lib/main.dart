@@ -1,5 +1,6 @@
 import 'package:deegolabs/footer.dart';
 import 'package:deegolabs/home.dart';
+import 'package:deegolabs/login.dart';
 import 'package:flutter/material.dart';
 import 'package:deegolabs/point.dart';
 import 'package:deegolabs/map.dart';
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   int tap = 0; // tap 상태는 클래스 멤버 변수로 선언해야 합니다
 
   final List<Widget> pages = [
-    Home(),
+    Log(),
     NaverMapApp(),
     Point(),
     Setting(),
