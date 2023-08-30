@@ -2,11 +2,24 @@ import 'package:deegolabs/home.dart';
 import 'package:flutter/material.dart';
 
 
-class Log extends StatelessWidget {
+class Log extends StatefulWidget {
   const Log({super.key});
 
+
+  @override
+  State<Log> createState() => _LogState();
+}
+
+class _LogState extends State<Log> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+
     return Container(
       decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
       width: double.infinity,
