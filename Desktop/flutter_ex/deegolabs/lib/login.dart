@@ -1,5 +1,6 @@
 import 'package:deegolabs/home.dart';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 
 class Log extends StatefulWidget {
@@ -134,8 +135,29 @@ class TextBtn extends StatelessWidget {
   }
 }
 
-class OuthBtn extends StatelessWidget {
+class OuthBtn extends StatefulWidget {
   const OuthBtn({super.key});
+
+  @override
+  State<OuthBtn> createState() => _OuthBtnState();
+}
+
+class _OuthBtnState extends State<OuthBtn> {
+
+  getData() async {
+    try {
+      OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+      print('카카오톡으로 로그인 성공 ${token.accessToken}');
+    } catch (error) {
+      print('카카오톡으로 로그인 실패 $error');
+    }
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +171,12 @@ class OuthBtn extends StatelessWidget {
             child: Text('네이버로고'),
           ),
           Container(
-            child: Text('카카오로고'),
+            child: TextButton(onPressed: (){
+              setState(() {
+                getData();
+              });
+            }, child: Text('카카오로그인')),
+
           )
         ],
       ),
