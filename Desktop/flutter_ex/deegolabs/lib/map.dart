@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:developer' show log;
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 
@@ -8,87 +9,37 @@ void main() async {
   runApp(const NaverMapApp());
 }
 
+// 지도 초기화하기
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NaverMapSdk.instance.initialize(
-      clientId: '1',
-      onAuthFailed: (ex) => log("********* 네이버맵 인증오류 : $ex *********"));
-}
-
-class NaverMapApp extends StatelessWidget {
-  final int? testId;
-
-  const NaverMapApp({super.key, this.testId});
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-      home: testId == null
-          ? const FirstPage()
-          : TestPage(key: Key("testPage_$testId")));
-}
-
-class FirstPage extends StatelessWidget {
-  const FirstPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('First Page')),
-        body: Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TestPage()));
-                },
-                child: const Text('Go to Second Page'))));
-  }
-}
-
-class TestPage extends StatefulWidget {
-  const TestPage({Key? key}) : super(key: key);
-
-  @override
-  State<TestPage> createState() => TestPageState();
-}
-
-class TestPageState extends State<TestPage> {
-  late NaverMapController _mapController;
-  final Completer<NaverMapController> mapControllerCompleter = Completer();
-
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final pixelRatio = mediaQuery.devicePixelRatio;
-    final mapSize =
-    Size(mediaQuery.size.width - 32, mediaQuery.size.height - 72);
-    final physicalSize =
-    Size(mapSize.width * pixelRatio, mapSize.height * pixelRatio);
-
-    print("physicalSize: $physicalSize");
-
-    return Scaffold(
-      backgroundColor: const Color(0xFF343945),
-      body: Center(
-          child: SizedBox(
-              width: mapSize.width,
-              height: mapSize.height,
-              // color: Colors.greenAccent,
-              child: _naverMapSection())),
-    );
-  }
-
-  Widget _naverMapSection() => NaverMap(
-    options: const NaverMapViewOptions(
-        indoorEnable: true,
-        locationButtonEnable: false,
-        consumeSymbolTapEvents: false),
-    onMapReady: (controller) async {
-      _mapController = controller;
-      mapControllerCompleter.complete(controller);
-      log("onMapReady", name: "onMapReady");
-    },
+      clientId: 'mO4HPigLnqb3apzd2L2F',     // 클라이언트 ID 설정
+      onAuthFailed: (e) => log("네이버맵 인증오류 : $e", name: "onAuthFailed")
   );
 }
 
+class NaverMapApp extends StatelessWidget {
+  const NaverMapApp({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    // NaverMapController 객체의 비동기 작업 완료를 나타내는 Completer 생성
+    final Completer<NaverMapController> mapControllerCompleter = Completer();
+
+    return MaterialApp(
+      home: Scaffold(
+        body: NaverMap(
+          options: const NaverMapViewOptions(
+            indoorEnable: true,             // 실내 맵 사용 가능 여부 설정
+            locationButtonEnable: false,    // 위치 버튼 표시 여부 설정
+            consumeSymbolTapEvents: false,  // 심볼 탭 이벤트 소비 여부 설정
+          ),
+          onMapReady: (controller) async {                // 지도 준비 완료 시 호출되는 콜백 함수
+            mapControllerCompleter.complete(controller);  // Completer에 지도 컨트롤러 완료 신호 전송
+            log("onMapReady", name: "onMapReady");
+          },
+        ),
+      ),
+    );
+  }
+}

@@ -7,6 +7,8 @@ import 'package:deegolabs/map.dart';
 import 'package:deegolabs/setting.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
+import 'naver.dart';
+
 
 void main() {
   KakaoSdk.init(nativeAppKey: '413db6c1481faf48ecd19af7a9b474e4');
